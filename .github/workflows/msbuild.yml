@@ -39,7 +39,7 @@ jobs:
       run: msbuild "C:\projects\pdfdesecure\PDFDeSecure.sln"
       
     - name: upload
-    - uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3
       with:
         name: my-artifact
         path: C:\projects\pdfdesecure\PDFDeSecure\bin\Debug\PDFDeSecure.exe
