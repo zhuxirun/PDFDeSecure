@@ -27,10 +27,8 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Restore NuGet packages
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      with:
+        vs-version: '[15.8,15.9)'
 
     - name: get
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
@@ -38,4 +36,11 @@ jobs:
       run: git clone -q --branch=master https://github.com/abatsakidis/PDFDeSecure.git C:\projects\pdfdesecure
 
     - name: build
-      run: msbuild "C:\projects\pdfdesecure\PDFDeSecure.sln" /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+      run: msbuild "C:\projects\pdfdesecure\PDFDeSecure.sln"
+      
+    - name: upload
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: C:\projects\pdfdesecure\PDFDeSecure\bin\Debug\PDFDeSecure.exe
+      
